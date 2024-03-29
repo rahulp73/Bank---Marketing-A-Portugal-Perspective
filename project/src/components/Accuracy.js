@@ -25,8 +25,9 @@ export default function Accuracy() {
   const [consConfIdx, setConsConfIdx] = useState([])
   const [euribor3m, setEuribor3m] = useState([])
   const [nrEmployed, setNrEmployed] = useState([])
+  const [y, setY] = useState([])
   const [model, setModel] = useState(null)
-  const [output, setOutput] = useState(null)
+  const [output, setOutput] = useState('')
 
   const accuracyData = async () => {
     await fetch(`http://127.0.0.1:5000/accuracy/${model}`,{
@@ -55,8 +56,9 @@ export default function Accuracy() {
         "cons.conf.idx":consConfIdx.map(val => parseFloat(val)),
         "euribor3m":euribor3m.map(val => parseFloat(val)),
         "nr.employed":nrEmployed.map(val => parseFloat(val)),
+        "y":y.map(val => parseFloat(val)),
       })
-    }).then(res=>res.json()).then(data=>console.log(data))
+    }).then(res=>res.json()).then(data=>setOutput(data))
   }
 
   const handleInputChange = (event, setStateFunction) => {
@@ -89,6 +91,7 @@ export default function Accuracy() {
         <TextField id="outlined-basic" value={consConfIdx.join(',')} onChange={(event)=>{handleInputChange(event,setConsConfIdx)}} label="Cons.Conf.Idx" variant="outlined" />
         <TextField id="outlined-basic" value={euribor3m.join(',')} onChange={(event)=>{handleInputChange(event,setEuribor3m)}} label="Euribor3m" variant="outlined" />
         <TextField id="outlined-basic" value={nrEmployed.join(',')} onChange={(event)=>{handleInputChange(event,setNrEmployed)}} label="Nr.Employed" variant="outlined" />
+        <TextField id="outlined-basic" value={y.join(',')} onChange={(event)=>{handleInputChange(event,setY)}} label="Y" variant="outlined" />
         <FormControl sx={{minWidth:200}}>
         <InputLabel id="demo-simple-select-label">Model</InputLabel>
         <Select
@@ -116,7 +119,7 @@ export default function Accuracy() {
       </div>
         <Typography variant='h4' gutterBottom>Output:</Typography>
       <div style={{paddingLeft:50}}>
-        <OutlinedCard data={output} />
+        {output && <OutlinedCard output={output} />}
       </div>
     </>
   )
