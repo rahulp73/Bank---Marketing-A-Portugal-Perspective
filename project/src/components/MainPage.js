@@ -10,19 +10,19 @@ export default function MainPage() {
             image:PredictiveAnalysis,
             title:'Predictive Analysis',
             link:'/predictiveAnalysis',
-            description:'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica'
+            description:'Predictive analysis uses data to forecast future trends, behaviors, or outcomes, aiding decision-making processes'
         },
         {
             image:Accuracy,
             title:'Accuracy',
             link:'/accuracy',
-            description:'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica'
+            description:'Accuracy measures the closeness of a result to its true value, reflecting the reliability and correctness of a measurement'
         },
         {
             image:Dataset,
             title:'Dataset',
             link:'/dataset',
-            description:'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica'
+            description:'Dataset analysis involves examining data to uncover patterns, trends, and insights, facilitating informed decision-making.'
         }
     ]
   return (
