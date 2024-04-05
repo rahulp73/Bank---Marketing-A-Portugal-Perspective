@@ -4,6 +4,7 @@ import pandas as pd
 from tensorflow.keras.models import load_model
 from flask_cors import CORS, cross_origin
 from sklearn.metrics import classification_report
+import io
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
@@ -69,6 +70,41 @@ def accuracy(model_name):
         return jsonify(modelName=model_name,data=accuracy)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/dataset/<model_name>', methods=['POST'])
+@cross_origin(supports_credentials=True)
+def dataset(model_name):
+    if 'file' not in request.files:
+        return 'No file part'
+    if model_name not in models:
+        return jsonify({'error': 'Model not found'}), 404
+
+    model = models[model_name]
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return 'No selected file'
+
+    # Read the CSV data from the request
+    csv_data = file.read().decode('utf-8')
+
+    # Convert CSV data to Pandas DataFrame
+    data = pd.read_csv(io.StringIO(csv_data))
+    X = data.iloc[:, :-1]  # Input features (1st 20 columns)
+    y = data.iloc[:, -1]
+
+    datasetPred = model.predict(X) # Assuming 'features' is the key for input features
+    accuracy = classification_report(datasetPred,y)
+
+    ones_count = sum(1 for num in datasetPred if num == 1)
+    zeroes_count = sum(1 for num in datasetPred if num == 0)
+    # print('\n',datasetPred)
+    return jsonify(ones=ones_count,zeroes=zeroes_count,accuracy=accuracy)
+
+    # Now you have a Pandas DataFrame `df` that you can use for processing or prediction
+    # Example: return the DataFrame as JSON
+    return jsonify()
     
 if __name__ == '__main__':
     app.run(port=5000)
