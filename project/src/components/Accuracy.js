@@ -30,7 +30,7 @@ export default function Accuracy() {
   const [output, setOutput] = useState('')
 
   const accuracyData = async () => {
-    await fetch(`http://127.0.0.1:5000/accuracy/${model}`,{
+    await fetch(`http://127.0.0.1:5000/accuracy/xgb`,{
       method:'post',
       headers:{
         'Content-Type':'application/json'
@@ -92,7 +92,7 @@ export default function Accuracy() {
         <TextField id="outlined-basic" value={euribor3m.join(',')} onChange={(event)=>{handleInputChange(event,setEuribor3m)}} label="Euribor3m" variant="outlined" />
         <TextField id="outlined-basic" value={nrEmployed.join(',')} onChange={(event)=>{handleInputChange(event,setNrEmployed)}} label="Nr.Employed" variant="outlined" />
         <TextField id="outlined-basic" value={y.join(',')} onChange={(event)=>{handleInputChange(event,setY)}} label="Y" variant="outlined" />
-        <FormControl sx={{minWidth:200}}>
+        {/* <FormControl sx={{minWidth:200}}>
         <InputLabel id="demo-simple-select-label">Model</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -111,7 +111,7 @@ export default function Accuracy() {
           <MenuItem value={'svm'}>SVM</MenuItem>
           <MenuItem value={'xgb'}>XGB</MenuItem>
         </Select>
-        </FormControl>
+        </FormControl> */}
         </div>
         <Button variant="contained" startIcon={<TipsAndUpdates />} onClick={()=>{accuracyData()}}>
             Predict

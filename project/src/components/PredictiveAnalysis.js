@@ -27,7 +27,7 @@ export default function PredictiveAnalysis() {
   const [output, setOutput] = useState('')
 
   const predictData = async () => {
-    await fetch(`http://127.0.0.1:5000/predict/${model}`,{
+    await fetch(`http://127.0.0.1:5000/predict/xgb`,{
       method:'post',
       headers:{
         'Content-Type':'application/json'
@@ -82,7 +82,7 @@ export default function PredictiveAnalysis() {
         <TextField id="outlined-basic" value={consConfIdx} onChange={(event)=>{setConsConfIdx(event.target.value)}} label="Cons.Conf.Idx" variant="outlined" />
         <TextField id="outlined-basic" value={euribor3m} onChange={(event)=>{setEuribor3m(event.target.value)}} label="Euribor3m" variant="outlined" />
         <TextField id="outlined-basic" value={nrEmployed} onChange={(event)=>{setNrEmployed(event.target.value)}} label="Nr.Employed" variant="outlined" />
-        <FormControl sx={{minWidth:200}}>
+        {/* <FormControl sx={{minWidth:200}}>
         <InputLabel id="demo-simple-select-label">Model</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -101,7 +101,7 @@ export default function PredictiveAnalysis() {
           <MenuItem value={'svm'}>SVM</MenuItem>
           <MenuItem value={'xgb'}>XGB</MenuItem>
         </Select>
-        </FormControl>
+        </FormControl> */}
         </div>
         <Button variant="contained" startIcon={<TipsAndUpdates />} onClick={()=>{predictData()}}>
             Predict

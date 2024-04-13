@@ -31,7 +31,7 @@ export default function Dataset() {
     const formData = new FormData()
     formData.append('file',selectedFile)
     // try {
-      fetch('http://127.0.0.1:5000/dataset/logisticRegression', {
+      fetch('http://127.0.0.1:5000/dataset/xgb', {
         method: 'POST',
         body: formData,
       }).then(res=>res.json()).then(data=>setOutput(data));
